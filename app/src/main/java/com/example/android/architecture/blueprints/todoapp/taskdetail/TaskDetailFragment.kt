@@ -44,7 +44,7 @@ class TaskDetailFragment : Fragment() {
     private val args: TaskDetailFragmentArgs by navArgs()
 
     private val viewModel by viewModels<TaskDetailViewModel> {
-        TasksDetailsViewModelFactory((requireContext().applicationContext as TodoApplication).taskRepository)
+        TaskDetailViewModelFactory((requireContext().applicationContext as TodoApplication).taskRepository)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -56,12 +56,12 @@ class TaskDetailFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        viewModel.deleteTaskEvent.observe(viewLifecycleOwner, EventObserver {
+        viewModel.deleteTaskEvent.observe(this, EventObserver {
             val action = TaskDetailFragmentDirections
                 .actionTaskDetailFragmentToTasksFragment(DELETE_RESULT_OK)
             findNavController().navigate(action)
         })
-        viewModel.editTaskEvent.observe(viewLifecycleOwner, EventObserver {
+        viewModel.editTaskEvent.observe(this, EventObserver {
             val action = TaskDetailFragmentDirections
                 .actionTaskDetailFragmentToAddEditTaskFragment(
                     args.taskId,

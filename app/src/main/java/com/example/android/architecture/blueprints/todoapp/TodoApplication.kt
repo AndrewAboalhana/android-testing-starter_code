@@ -29,7 +29,7 @@ import timber.log.Timber.DebugTree
  */
 class TodoApplication : Application() {
 
-    val taskRepository : TasksRepository
+    val taskRepository: TasksRepository
         get() = ServiceLocator.provideTasksRepository(this)
 
     override fun onCreate() {
